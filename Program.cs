@@ -12,6 +12,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IGitHubService, GithubService>();
 builder.Services.AddScoped<IRepositoryFilterService, RepositoryFilterService>();
+builder.Services.AddScoped<ILogService, LogService>();
 
 builder.Services.Configure<GitHubSettings>(builder.Configuration.GetSection("GitHubSettings"));
 

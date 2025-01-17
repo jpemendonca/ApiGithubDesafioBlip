@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using ApiGithubDesafioBlip.Enums;
 using ApiGithubDesafioBlip.Interfaces;
 using ApiGithubDesafioBlip.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,22 +12,32 @@ public class GitHubController : ControllerBase
 {
     private readonly IGitHubService _githubService;
     private readonly IRepositoryFilterService _repositoryFilterService;
+    private readonly ILogService _logService;
 
-    public GitHubController(IGitHubService githubService, IRepositoryFilterService repositoryFilterService)
+    public GitHubController(IGitHubService githubService, IRepositoryFilterService repositoryFilterService,
+        ILogService logService)
     {
         _githubService = githubService;
         _repositoryFilterService = repositoryFilterService;
+        _logService = logService;
     }
-    
+
     [HttpGet("{username}/repositories")]
-    public async Task<IActionResult> GetRepositories(string username, [FromQuery] string language = "C#", [FromQuery] int minCount = 5)
+    public async Task<IActionResult> GetRepositories(string username, [FromQuery] string language = "C#",
+        [FromQuery] int minCount = 5)
     {
         try
         {
+            await _logService.Log($"Fetching at least {minCount} {language} repositories for github user {username}", EnumLogLevel.Info,
+                "GitHubController.GetRepositories");
+
             var repositories = await _githubService.GetRepositories(username, 30);
 
             if (!repositories.Any())
             {
+                await _logService.Log($"No repositories found for user {username}.", EnumLogLevel.Warning,
+                    "GitHubController.GetRepositories");
+                
                 return NotFound("No repositories found.");
             }
 
@@ -34,22 +45,36 @@ public class GitHubController : ControllerBase
 
             if (!filteredRepositories.Any())
             {
+                await _logService.Log($"No repositories found in {language} for user {username}.", EnumLogLevel.Warning,
+                    "GitHubController.GetRepositories");
+
                 return NotFound($"No repositories found in {language} for user {username}.");
             }
 
             if (filteredRepositories.Count < minCount)
             {
-                return UnprocessableEntity($"Only {filteredRepositories.Count} repositories found in {language} for user {username}.");
+                await _logService.Log(
+                    $"Only {filteredRepositories.Count} repositories found in {language} for user {username}, which is less than the minimum required ({minCount}).",
+                    EnumLogLevel.Warning, "GitHubController.GetRepositories");
+
+                return UnprocessableEntity(
+                    $"Only {filteredRepositories.Count} repositories found in {language} for user {username}.");
             }
 
             var repositoryDetails = _repositoryFilterService.ExtractDetails(filteredRepositories);
+
+            await _logService.Log(
+                $"Returning {repositoryDetails.Count} repositories for user {username} filtered by language {language}.",
+                EnumLogLevel.Info, "GitHubController.GetRepositories");
 
             return Ok(repositoryDetails);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Erro ao buscar projetos do GitHub: {ex.Message}");
+            await _logService.Log($"Error while fetching repositories for user {username}: {ex.Message}",
+                EnumLogLevel.Error, "GitHubController.GetRepositories");
+
+            return StatusCode(500, $"Error while fetching repositories for user {username}: {ex.Message}");
         }
     }
-
 }
