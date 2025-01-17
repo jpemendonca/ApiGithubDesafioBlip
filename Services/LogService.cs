@@ -29,20 +29,10 @@ public class LogService : ILogService
         
         using (var connection = new SqliteConnection(_connectionString))
         {
-            await connection.OpenAsync();
+            connection.Open();
 
-            var query = @"
-            INSERT INTO Logs (Id, Date, Message, Level, Source)
-            VALUES (@Id, @Date, @Message, @Level, @Source)";
-
-            await connection.ExecuteAsync(query, new
-            {
-                log.Id,
-                log.Date,
-                log.Message,
-                log.Level,
-                log.Source
-            });
+            var query = "INSERT INTO Logs (Date, Message, Level, Source) VALUES (@Date, @Message, @Level, @Source)";
+            await connection.ExecuteAsync(query, log);
         }
     }
 
