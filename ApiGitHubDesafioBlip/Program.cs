@@ -23,6 +23,9 @@ builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IGitHubService, GithubService>();
+builder.Services.AddScoped<IGitHubApiService, GitHubApiService>();
+builder.Services.AddScoped<IGitHubVerificationService, GitHubVerificationService>();
+
 builder.Services.AddScoped<IUserValidationService, UserValidationService>();
 builder.Services.AddScoped<IRepositoryFilterService, RepositoryFilterService>();
 builder.Services.AddScoped<ILogService, LogService>();

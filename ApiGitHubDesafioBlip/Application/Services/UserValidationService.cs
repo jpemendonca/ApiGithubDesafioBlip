@@ -4,15 +4,15 @@ namespace ApiGithubDesafioBlip.Application.Services;
 
 public class UserValidationService : IUserValidationService
 {
-    private readonly IGitHubService _githubService;
+    private readonly IGitHubApiService _gitHubApiService;
 
-    public UserValidationService(IGitHubService githubService)
+    public UserValidationService(IGitHubApiService gitHubApiService)
     {
-        _githubService = githubService;
+        _gitHubApiService = gitHubApiService;
     }
 
     public async Task<bool> UserExists(string username)
     {
-        return await _githubService.UserExists(username);
+        return await _gitHubApiService.VerifyIfUserExists(username);
     }
 }

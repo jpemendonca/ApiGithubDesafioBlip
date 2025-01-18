@@ -1,5 +1,6 @@
 ﻿using ApiGithubDesafioBlip.Application.Interfaces;
 using ApiGithubDesafioBlip.Domain.Enums;
+using ApiGithubDesafioBlip.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGithubDesafioBlip.Apis.Controllers;
@@ -9,20 +10,18 @@ namespace ApiGithubDesafioBlip.Apis.Controllers;
 public class GitHubController : ControllerBase
 {
     private readonly IGitHubService _githubService;
-    private readonly IRepositoryFilterService _repositoryFilterService;
     private readonly ILogService _logService;
 
     public GitHubController(IGitHubService githubService, IRepositoryFilterService repositoryFilterService,
         ILogService logService)
     {
         _githubService = githubService;
-        _repositoryFilterService = repositoryFilterService;
         _logService = logService;
     }
 
     [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
     [ProducesResponseType(422)]
+    [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     [EndpointSummary("Get repositories for a specific GitHub user, filtered by language.")]
     [EndpointDescription(
@@ -33,63 +32,26 @@ public class GitHubController : ControllerBase
     {
         try
         {
-            bool userExists = await _githubService.UserExists(username);
+            var repositories = await _githubService.GetRepositoryDetails(username, language, minCount);
 
-            if (!userExists)
-            {
-                await _logService.LogWarning(
-                    $"Failed to fetch {minCount} {language} repositories for non-existent GitHub user '{username}'.");
-
-                return NotFound($"The GitHub user '{username}' does not exist.");
-            }
-
-            await _logService.LogInfo(
-                $"Fetching at least {minCount} {language} repositories for github user {username}");
-
-            var repositories = await _githubService.GetRepositories(username, 30);
-
-            if (!repositories.Any())
-            {
-                await _logService.Log($"No repositories found for user {username}.", EnumLogLevel.Warning,
-                    "GitHubController.GetRepositories");
-
-                return NotFound("No repositories found.");
-            }
-
-            var filteredRepositories = _repositoryFilterService.FilterByLanguage(repositories, language);
-
-            if (!filteredRepositories.Any())
-            {
-                await _logService.Log($"No repositories found in {language} for user {username}.", EnumLogLevel.Warning,
-                    "GitHubController.GetRepositories");
-
-                return NotFound($"No repositories found in {language} for user {username}.");
-            }
-
-            if (filteredRepositories.Count < minCount)
-            {
-                await _logService.Log(
-                    $"Only {filteredRepositories.Count} repositories found in {language} for user {username}, which is less than the minimum required ({minCount}).",
-                    EnumLogLevel.Warning, "GitHubController.GetRepositories");
-
-                return UnprocessableEntity(
-                    $"Only {filteredRepositories.Count} repositories found in {language} for user {username}.");
-            }
-
-            var repositoryDetails = _repositoryFilterService.ExtractDetails(filteredRepositories);
-
-            await _logService.Log(
-                $"Returning {repositoryDetails.Count} repositories for user {username} filtered by language {language}.",
-                EnumLogLevel.Info, "GitHubController.GetRepositories");
-
-            return Ok(repositoryDetails);
+            return Ok(repositories);
+        }
+        catch (UserNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (NoRepositoryFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (RepositoryLanguageException ex)
+        {
+            return UnprocessableEntity(ex.Message);
         }
         catch (Exception ex)
         {
-            await _logService.Log($"Error while fetching repositories for user {username}: {ex.Message}",
-                EnumLogLevel.Error, "GitHubController.GetRepositories");
-
-            return StatusCode(500, $"Error while fetching repositories for user {username}: {ex.Message}");
+            await _logService.LogError(ex.Message);
+            return StatusCode(500, "Server Internal Error");
         }
     }
 }
