@@ -5,3 +5,5 @@ CREATE TABLE Logs (
                       Level INTEGER NOT NULL,
                       Source TEXT NOT NULL
 );
+
+-- Esse script sql foi usado para gerar a tabela Logs, no banco de dados sqlite desafio.db incluido no projeto

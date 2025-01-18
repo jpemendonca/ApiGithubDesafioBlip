@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGithubDesafioBlip", "ApiGithubDesafioBlip.csproj", "{7C6F8C64-4747-4728-B729-0AF470D60CF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGithubDesafioBlip.Tests", "..\ApiGithubDesafioBlip.Tests\ApiGithubDesafioBlip.Tests\ApiGithubDesafioBlip.Tests.csproj", "{DF67A03D-10BE-4769-9405-F0405F3071B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +17,12 @@ Global
 		{7C6F8C64-4747-4728-B729-0AF470D60CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C6F8C64-4747-4728-B729-0AF470D60CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C6F8C64-4747-4728-B729-0AF470D60CF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF67A03D-10BE-4769-9405-F0405F3071B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF67A03D-10BE-4769-9405-F0405F3071B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF67A03D-10BE-4769-9405-F0405F3071B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF67A03D-10BE-4769-9405-F0405F3071B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

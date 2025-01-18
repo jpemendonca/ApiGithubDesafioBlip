@@ -24,6 +24,7 @@ public class GithubService : IGitHubService
             HttpMethod.Get, 
             $"{_baseUrl}/users/{userName}/repos?sort=created&direction=asc&type=owner&per_page={amount}"
         );
+        
         request.Headers.Add("User-Agent", "HttpClient");
         request.Headers.Add("Authorization", $"Bearer {_token}");
 
@@ -34,5 +35,27 @@ public class GithubService : IGitHubService
         var repositories = JsonSerializer.Deserialize<List<GitHubRepositoryResponse>>(content);
         
         return repositories;
+    }
+
+    public async Task<bool> UserExists(string username)
+    {
+        var request = new HttpRequestMessage(
+            HttpMethod.Get, 
+            $"{_baseUrl}/users/{username}"
+        );
+        
+        request.Headers.Add("User-Agent", "HttpClient");
+        request.Headers.Add("Authorization", $"Bearer {_token}");
+        
+        try
+        {
+            var response = await _httpClient.SendAsync(request);
+
+            return response.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException)
+        {
+            return false;
+        }
     }
 }
