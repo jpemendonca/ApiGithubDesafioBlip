@@ -2,7 +2,6 @@
 using ApiGithubDesafioBlip.Domain.Models;
 
 namespace ApiGitHubDesafioBlip.Tests;
-
 public class RepositoryFilterServiceTests
 {
     private readonly RepositoryFilterService _repositoryFilterService;
