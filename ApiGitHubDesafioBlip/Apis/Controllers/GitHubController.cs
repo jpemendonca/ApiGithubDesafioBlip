@@ -20,6 +20,13 @@ public class GitHubController : ControllerBase
         _logService = logService;
     }
 
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    [ProducesResponseType(422)]
+    [ProducesResponseType(500)]
+    [EndpointSummary("Get repositories for a specific GitHub user, filtered by language.")]
+    [EndpointDescription(
+        "If you don't inform the language and the minimum of repositories, you will get C# and 5 repositories as default")]
     [HttpGet("{username}/repositories")]
     public async Task<IActionResult> GetRepositories(string username, [FromQuery] string language = "C#",
         [FromQuery] int minCount = 5)
@@ -35,11 +42,12 @@ public class GitHubController : ControllerBase
                     EnumLogLevel.Warning,
                     "GitHubController.GetRepositories"
                 );
-                
+
                 return NotFound($"The GitHub user '{username}' does not exist.");
             }
-            
-            await _logService.Log($"Fetching at least {minCount} {language} repositories for github user {username}", EnumLogLevel.Info,
+
+            await _logService.Log($"Fetching at least {minCount} {language} repositories for github user {username}",
+                EnumLogLevel.Info,
                 "GitHubController.GetRepositories");
 
             var repositories = await _githubService.GetRepositories(username, 30);

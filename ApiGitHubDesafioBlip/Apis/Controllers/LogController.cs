@@ -14,6 +14,11 @@ public class LogController : ControllerBase
         _logService = logService;
     }
 
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [EndpointSummary("Get the logs for the api application.")]
+    [EndpointDescription(
+        "All the logs are storaged in the application, on a SQLite database.")]
     [HttpGet()]
     public async Task<IActionResult> Get()
     {
