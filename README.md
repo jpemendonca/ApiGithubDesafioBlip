@@ -43,6 +43,9 @@ GET /api/Log
 ### Injeção de Dependência
 O projeto utiliza o padrão de **Injeção de Dependência** para gerenciar os serviços de forma eficiente e desacoplada. Esse padrão facilita a manutenção, testes e a expansão da aplicação.
 
+### Testes de Unidade
+Foram adicionados testes para as services, utilizando o pacote Xunit da Microsoft
+
 ### Arquitetura em Camadas (Layered Architecture)
 A aplicação foi desenvolvida seguindo a **arquitetura em camadas**, separando responsabilidades de forma clara:
 - **Camada de Apresentação:** Responsável pela interação com o usuário e pela disponibilização dos endpoints.
@@ -51,6 +54,9 @@ A aplicação foi desenvolvida seguindo a **arquitetura em camadas**, separando 
 
 ### SOLID e RESTful
 As funções obedecem os príncipios do SOLID e as APIs às regras do padrão RESTful.
+
+### Criação de Exceptions próprias
+Foram criadas Exceptions para os casos de problemas na consulta, como UserNotFoundException.
 
 ## Tecnologias Utilizadas
 - **.NET 9**
