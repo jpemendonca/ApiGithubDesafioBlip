@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiGitHubDesafioBlip.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1d2ef209fb1689fa136daf801d57c41c56d6d80")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d96546138ad896a5299386223d6fba128e59f8fc")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiGitHubDesafioBlip.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiGitHubDesafioBlip.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

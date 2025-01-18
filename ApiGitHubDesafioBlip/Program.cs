@@ -23,6 +23,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IGitHubService, GithubService>();
+builder.Services.AddScoped<IUserValidationService, UserValidationService>();
 builder.Services.AddScoped<IRepositoryFilterService, RepositoryFilterService>();
 builder.Services.AddScoped<ILogService, LogService>();
 
@@ -31,7 +32,11 @@ builder.Services.Configure<GitHubSettings>(builder.Configuration.GetSection("Git
 var app = builder.Build();
 
 app.MapOpenApi();
-app.MapScalarApiReference("/");
+//app.MapScalarApiReference("/");
+app.MapScalarApiReference("/", options =>
+{
+    options.WithTheme(ScalarTheme.Alternate);
+});
 
 app.UseHttpsRedirection();
 

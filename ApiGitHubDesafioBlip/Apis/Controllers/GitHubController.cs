@@ -37,18 +37,14 @@ public class GitHubController : ControllerBase
 
             if (!userExists)
             {
-                await _logService.Log(
-                    $"Failed to fetch {minCount} {language} repositories for non-existent GitHub user '{username}'.",
-                    EnumLogLevel.Warning,
-                    "GitHubController.GetRepositories"
-                );
+                await _logService.LogWarning(
+                    $"Failed to fetch {minCount} {language} repositories for non-existent GitHub user '{username}'.");
 
                 return NotFound($"The GitHub user '{username}' does not exist.");
             }
 
-            await _logService.Log($"Fetching at least {minCount} {language} repositories for github user {username}",
-                EnumLogLevel.Info,
-                "GitHubController.GetRepositories");
+            await _logService.LogInfo(
+                $"Fetching at least {minCount} {language} repositories for github user {username}");
 
             var repositories = await _githubService.GetRepositories(username, 30);
 

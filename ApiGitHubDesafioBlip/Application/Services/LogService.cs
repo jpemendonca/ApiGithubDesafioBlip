@@ -23,15 +23,65 @@ public class LogService : ILogService
         var log = new Log()
         {
             Level = level,
-            Message = message,
-            Source = source
+            Message = message
         };
         
         using (var connection = new SqliteConnection(_connectionString))
         {
             connection.Open();
 
-            var query = "INSERT INTO Logs (Date, Message, Level, Source) VALUES (@Date, @Message, @Level, @Source)";
+            var query = "INSERT INTO Logs (Date, Message, Level, Source) VALUES (@Date, @Message, @Level)";
+            await connection.ExecuteAsync(query, log);
+        }
+    }
+
+    public async Task LogInfo(string message)
+    {
+        var log = new Log()
+        {
+            Level = EnumLogLevel.Info,
+            Message = message,
+        };
+        
+        using (var connection = new SqliteConnection(_connectionString))
+        {
+            connection.Open();
+
+            var query = "INSERT INTO Logs (Date, Message, Level) VALUES (@Date, @Message, @Level)";
+            await connection.ExecuteAsync(query, log);
+        }
+    }
+
+    public async Task LogWarning(string message)
+    {
+        var log = new Log()
+        {
+            Level = EnumLogLevel.Warning,
+            Message = message,
+        };
+        
+        using (var connection = new SqliteConnection(_connectionString))
+        {
+            connection.Open();
+
+            var query = "INSERT INTO Logs (Date, Message, Level) VALUES (@Date, @Message, @Level)";
+            await connection.ExecuteAsync(query, log);
+        }
+    }
+
+    public async Task LogError(string message)
+    {
+        var log = new Log()
+        {
+            Level = EnumLogLevel.Error,
+            Message = message,
+        };
+        
+        using (var connection = new SqliteConnection(_connectionString))
+        {
+            connection.Open();
+
+            var query = "INSERT INTO Logs (Date, Message, Level) VALUES (@Date, @Message, @Level)";
             await connection.ExecuteAsync(query, log);
         }
     }
