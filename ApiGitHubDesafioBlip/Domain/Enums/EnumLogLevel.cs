@@ -1,4 +1,4 @@
-﻿namespace ApiGithubDesafioBlip.Enums;
+﻿namespace ApiGithubDesafioBlip.Domain.Enums;
 
 public enum EnumLogLevel
 {

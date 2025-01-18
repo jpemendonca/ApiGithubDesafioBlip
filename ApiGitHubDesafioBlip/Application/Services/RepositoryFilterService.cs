@@ -1,7 +1,7 @@
-﻿using ApiGithubDesafioBlip.Interfaces;
-using ApiGithubDesafioBlip.Models;
+﻿using ApiGithubDesafioBlip.Application.Interfaces;
+using ApiGithubDesafioBlip.Domain.Models;
 
-namespace ApiGithubDesafioBlip.Services;
+namespace ApiGithubDesafioBlip.Application.Services;
 
 public class RepositoryFilterService : IRepositoryFilterService
 {

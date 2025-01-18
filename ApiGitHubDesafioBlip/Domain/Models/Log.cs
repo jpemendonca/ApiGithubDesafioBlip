@@ -1,6 +1,6 @@
-﻿using ApiGithubDesafioBlip.Enums;
+﻿using ApiGithubDesafioBlip.Domain.Enums;
 
-namespace ApiGithubDesafioBlip.Models;
+namespace ApiGithubDesafioBlip.Domain.Models;
 
 public class Log
 {

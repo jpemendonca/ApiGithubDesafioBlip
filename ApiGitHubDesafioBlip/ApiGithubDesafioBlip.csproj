@@ -19,4 +19,9 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Apis\" />
+      <Folder Include="Domain\" />
+    </ItemGroup>
+
 </Project>

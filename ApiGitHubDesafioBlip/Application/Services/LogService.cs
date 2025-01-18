@@ -1,10 +1,10 @@
-﻿using ApiGithubDesafioBlip.Enums;
-using ApiGithubDesafioBlip.Interfaces;
-using ApiGithubDesafioBlip.Models;
+﻿using ApiGithubDesafioBlip.Application.Interfaces;
+using ApiGithubDesafioBlip.Domain.Enums;
+using ApiGithubDesafioBlip.Domain.Models;
 using Dapper;
 using Microsoft.Data.Sqlite;
 
-namespace ApiGithubDesafioBlip.Services;
+namespace ApiGithubDesafioBlip.Application.Services;
 
 public class LogService : ILogService
 {

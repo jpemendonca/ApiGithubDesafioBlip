@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
-using ApiGithubDesafioBlip.Interfaces;
-using ApiGithubDesafioBlip.Models;
+using ApiGithubDesafioBlip.Application.Interfaces;
+using ApiGithubDesafioBlip.Domain.Models;
 using Microsoft.Extensions.Options;
 
-namespace ApiGithubDesafioBlip.Services;
+namespace ApiGithubDesafioBlip.Application.Services;
 
 public class GithubService : IGitHubService
 {

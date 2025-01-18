@@ -1,4 +1,4 @@
-﻿namespace ApiGithubDesafioBlip.Models;
+﻿namespace ApiGithubDesafioBlip.Domain.Models;
 
 public class GitHubSettings
 {

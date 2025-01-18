@@ -1,8 +1,7 @@
-﻿using ApiGithubDesafioBlip.Enums;
-using ApiGithubDesafioBlip.Interfaces;
+﻿using ApiGithubDesafioBlip.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiGithubDesafioBlip.Controllers;
+namespace ApiGithubDesafioBlip.Apis.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

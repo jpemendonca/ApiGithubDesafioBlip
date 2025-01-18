@@ -1,10 +1,8 @@
-﻿using System.Text.Json;
-using ApiGithubDesafioBlip.Enums;
-using ApiGithubDesafioBlip.Interfaces;
-using ApiGithubDesafioBlip.Models;
+﻿using ApiGithubDesafioBlip.Application.Interfaces;
+using ApiGithubDesafioBlip.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiGithubDesafioBlip.Controllers;
+namespace ApiGithubDesafioBlip.Apis.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

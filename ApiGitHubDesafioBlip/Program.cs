@@ -1,6 +1,6 @@
-using ApiGithubDesafioBlip.Interfaces;
-using ApiGithubDesafioBlip.Models;
-using ApiGithubDesafioBlip.Services;
+using ApiGithubDesafioBlip.Application.Interfaces;
+using ApiGithubDesafioBlip.Application.Services;
+using ApiGithubDesafioBlip.Domain.Models;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
