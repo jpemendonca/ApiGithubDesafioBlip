@@ -77,6 +77,9 @@ Foram criadas Exceptions para os casos de problemas na consulta, como UserNotFou
    cd ApiGithubDesafioBlip
    ```
 
+### Aviso importante
+O **token** do github, para o acesso da api, localizado em appsettings.json pode ter expirado. Se tiver expirado, a consulta a api pública do github não irá funcionar. Gere um novo token em https://github.com/settings/tokens e troque no appsettings.json
+
 ### Executar a API:
 1. Restaurar as dependências:
    ```bash
